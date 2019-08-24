@@ -39,7 +39,15 @@ ResourcePackEvents:
     events:
     
         on resource pack status:
+        
+        # Player Pack Events
         - if <context.status> == "DECLINED":
             - kick <player> "reason:<&4><&l>ResourcePackRequiredError<&nl><&f>You must download the resource pack to play."
         - else if <context.status> == "FAILED_DOWNLOAD":
             - kick <player> "reason:<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
+            
+        on player joins:
+        # Send Player Current Pack on Join
+        - wait 20t
+        - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
+            
