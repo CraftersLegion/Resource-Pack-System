@@ -13,6 +13,8 @@ ResourcePackInit:
 ResourcePackCommand:
     type: command
     name: resourcepack
+    usage: "/rp help"
+    description: "Command for resource pack system management."
     aliases:
     - rp
     - resource
