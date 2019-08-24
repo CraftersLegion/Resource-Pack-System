@@ -46,6 +46,14 @@ ResourcePackEvents:
         - else if <context.status> == "FAILED_DOWNLOAD":
             - kick <player> "reason:<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
             
+        # Pack Update Events
+        - if <context.status> != <yaml[resourcepack].read[hash]>:
+            # Update Resource Pack Hash
+            - yaml id:resourcepack set hash:<context.hash>
+            # Update Pack for All Players
+            - foreach <server.list_online_players.exclude[<player>]>:
+                - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
+            
         on player joins:
         # Send Player Current Pack on Join
         - wait 20t
