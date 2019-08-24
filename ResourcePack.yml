@@ -1,0 +1,34 @@
+ResourcePackInit:
+    type: task
+    debug: false
+    script:
+    # Create New File if Doesn't Exist
+    - if !<server.has_file[data/resourcepack.yml]>:
+        - yaml create id:resourcepack
+        - yaml savefile:data/resourcepack.yml id:resourcepack
+    # Load Old One If Already Exists
+    - else:
+        - yaml load:data/resourcepack.yml id:resourcepack
+        
+ResourcePackCommand:
+    type: command
+    name: resourcepack
+    aliases:
+    - rp
+    - resource
+    debug: false
+    script:
+    - if <context.server> || <player.is_op> || <player.has_permission[resourcepack.manage]>:
+        - define prefix "<&f>[<&c>ResourcePack<&f>]<&7>"
+        - if !<context.args.is_empty>:
+            - if <context.args.get[1]> == "help":
+                - narrate "<def[prefix]> Full List of Available Commands:"
+                - narrate "<def[prefix]> /rp help - List all commands."
+                - narrate "<def[prefix]> /rp hash - Get current resource pack hash."
+                - narrate "<def[prefix]> /rp sethash <&lt>hash<&gt> - Set current resource pack hash."
+                - narrate "<def[prefix]> /rp reload - Reload current configuration and all player packs."
+                - narrate "<def[prefix]> /rp setpack <&lt>url<&gt> - Set current resource pack url."
+            - else:
+                - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
+        - else:
+            - narrate "<def[prefix]> Type <&dq>/help<&dq> for a list of commands."
