@@ -32,3 +32,12 @@ ResourcePackCommand:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
             - narrate "<def[prefix]> Type <&dq>/help<&dq> for a list of commands."
+            
+ResourcePackEvents:
+    type: world
+    debug: false
+    events:
+    
+        on resource pack status:
+        - if <context.status> == "DECLINED":
+            - kick <player> "reason:<&4><&l>ResourcePackRequiredError<&nl><&f>You must download the resource pack to play."
