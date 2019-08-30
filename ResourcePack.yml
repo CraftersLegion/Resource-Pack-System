@@ -52,6 +52,7 @@ ResourcePackEvents:
         - if <context.status> != <yaml[resourcepack].read[hash]>:
             # Update Resource Pack Hash
             - yaml id:resourcepack set hash:<context.hash>
+            - yaml savefile:data/resourcepack.yml id:resourcepack
             # Update Pack for All Players
             - foreach <server.list_online_players.exclude[<player>]>:
                 - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
