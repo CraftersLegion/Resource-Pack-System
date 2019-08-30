@@ -65,6 +65,20 @@ ResourcePackCommand:
                     - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
                 - else:
                     - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp setpack <&lt>url<&gt>"  
+            - else if <context.args.get[1]> == "setspawn":
+                - if !<context.server>:
+                    - yaml id:resourcepack set spawn:<player.location>
+                    - yaml savefile:data/resourcepack.yml id:resourcepack
+                    - narrate "<def[prefix]> The spawn has now been set to your current location."
+                - else:
+                    - narrate "<def[prefix]> Only a player can use this command."]
+            - else if <context.args.get[1]> == "setlobby":
+                - if !<context.server>:
+                    - yaml id:resourcepack set lobby:<player.location>
+                    - yaml savefile:data/resourcepack.yml id:resourcepack
+                    - narrate "<def[prefix]> The spawn has now been set to your current location."
+                - else:
+                    - narrate "<def[prefix]> Only a player can use this command."
             - else:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
