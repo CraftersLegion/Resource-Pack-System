@@ -30,6 +30,8 @@ ResourcePackCommand:
                 - narrate "<def[prefix]> /rp sethash <&lt>hash<&gt> - Set current resource pack hash."
                 - narrate "<def[prefix]> /rp reload - Reload current configuration and all player packs."
                 - narrate "<def[prefix]> /rp setpack <&lt>url<&gt> - Set current resource pack url."
+                - narrate "<def[prefix]> /rp setspawn - Set's the normal spawn to your location, for after the pack is loaded."
+                - narrate "<def[prefix]> /rp setlobby - Set's the lobby within your world for loading of the pack."
             - else:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
