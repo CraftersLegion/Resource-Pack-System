@@ -32,6 +32,8 @@ ResourcePackCommand:
                 - narrate "<def[prefix]> /rp setpack <&lt>url<&gt> - Set current resource pack url."
                 - narrate "<def[prefix]> /rp setspawn - Set's the normal spawn to your location, for after the pack is loaded."
                 - narrate "<def[prefix]> /rp setlobby - Set's the lobby within your world for loading of the pack."
+            - else if <context.args.get[1]> == "hash":
+                - narrate "<def[prefix]> The current resource pack hash is: <yaml[resourcepack].read[hash]>"
             - else:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
