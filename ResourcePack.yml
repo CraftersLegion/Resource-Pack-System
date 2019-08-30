@@ -10,6 +10,21 @@ ResourcePackInit:
     - else:
         - yaml load:data/resourcepack.yml id:resourcepack
         
+ResourcePackExit:
+    type: task
+    debug: false
+    script:
+    # Save Current Configuration
+    - yaml savefile:data/resourcepack.yml id:resourcepack
+    
+ServerPackUpdate:
+    type: task
+    debug: false
+    script:
+    # Update Pack for All Players
+    - foreach <server.list_online_players.exclude[<player>]>:
+        - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
+        
 ResourcePackCommand:
     type: command
     name: resourcepack
@@ -40,6 +55,10 @@ ResourcePackCommand:
                     - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
                 - else:
                     - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp sethash <&lt>hash<&gt>"
+            - else if <context.args.get[2]> == "reload":
+                - inject ResourcePackExit
+                - inject ResourcePackInit
+                - inject ServerPackUpdate
             - else:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
@@ -63,9 +82,7 @@ ResourcePackEvents:
             # Update Resource Pack Hash
             - yaml id:resourcepack set hash:<context.hash>
             - yaml savefile:data/resourcepack.yml id:resourcepack
-            # Update Pack for All Players
-            - foreach <server.list_online_players.exclude[<player>]>:
-                - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
+            - inject ServerPackUpdate
             
         on player joins:
         # Send Player Current Pack on Join
