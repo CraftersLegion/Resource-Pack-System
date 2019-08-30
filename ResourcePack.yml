@@ -34,6 +34,12 @@ ResourcePackCommand:
                 - narrate "<def[prefix]> /rp setlobby - Set's the lobby within your world for loading of the pack."
             - else if <context.args.get[1]> == "hash":
                 - narrate "<def[prefix]> The current resource pack hash is: <yaml[resourcepack].read[hash]>"
+            - else if <context.args.get[1]> == "sethash":
+                - if <context.args.get[2]||null> != null:
+                    - yaml id:resourcepack set hash:<context.args.get[2]>
+                    - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
+                - else:
+                    - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp sethash <&lt>hash<&gt>"
             - else:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
