@@ -59,6 +59,12 @@ ResourcePackCommand:
                 - inject ResourcePackExit
                 - inject ResourcePackInit
                 - inject ServerPackUpdate
+            - else if <context.args.get[1]> == "setpack":
+                - if <context.args.get[2]||null> != null:
+                    - yaml id:resourcepack set url:<context.args.get[2]>
+                    - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
+                - else:
+                    - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp setpack <&lt>url<&gt>"  
             - else:
                 - narrate "<def[prefix]> Unknown command. Type <&dq>/help<&dq> for a list of commands."
         - else:
