@@ -106,6 +106,9 @@ ResourcePackEvents:
             
         on player joins:
         # Send Player Current Pack on Join
-        - wait 20t
-        - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
-            
+        - teleport <player> <yaml[resourcepack].read[lobby].as_location>
+        
+        on player right clicks oak_wall_sign:
+        - if <context.location.world> == <yaml[resourcepack].read[lobby].as_location.world>:
+            - determine passively cancelled
+            - adjust <player> "resource_pack<yaml[resourcepack].read[url]>"
