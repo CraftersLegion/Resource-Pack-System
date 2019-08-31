@@ -92,8 +92,8 @@ ResourcePackEvents:
         on resource pack status:
         
         # Player Pack Events
-        - if <context.status> == "DECLINED":
-            - kick <player> "reason:<&4><&l>ResourcePackRequiredError<&nl><&f>You must download the resource pack to play."
+        - if <context.status> == "SUCCESSFULLY_DOWNLOADED":
+            - teleport <player> <yaml[resourcepack].read[spawn]>
         - else if <context.status> == "FAILED_DOWNLOAD":
             - kick <player> "reason:<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
             
