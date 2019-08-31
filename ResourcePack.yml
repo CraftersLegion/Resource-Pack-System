@@ -55,7 +55,7 @@ ResourcePackCommand:
                     - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
                 - else:
                     - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp sethash <&lt>hash<&gt>"
-            - else if <context.args.get[2]> == "reload":
+            - else if <context.args.get[1]> == "reload":
                 - inject ResourcePackExit
                 - inject ResourcePackInit
                 - inject ServerPackUpdate
