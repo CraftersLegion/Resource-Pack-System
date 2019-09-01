@@ -111,4 +111,4 @@ ResourcePackEvents:
         on player right clicks oak_wall_sign:
         - if <context.location.world> == <yaml[resourcepack].read[lobby].as_location.world>:
             - determine passively cancelled
-            - adjust <player> "resource_pack<yaml[resourcepack].read[url]>"
+            - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
