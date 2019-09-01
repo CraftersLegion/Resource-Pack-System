@@ -86,7 +86,7 @@ ResourcePackCommand:
             
 ResourcePackEvents:
     type: world
-    debug: false
+    debug: true
     events:
     
         on resource pack status:
@@ -95,14 +95,14 @@ ResourcePackEvents:
         - if <context.status> == "SUCCESSFULLY_DOWNLOADED":
             - teleport <player> <yaml[resourcepack].read[spawn]>
         - else if <context.status> == "FAILED_DOWNLOAD":
-            - kick <player> "reason:<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
+            - narrate "<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
             
         # Pack Update Events
-        - if <context.status> != <yaml[resourcepack].read[hash]>:
-            # Update Resource Pack Hash
-            - yaml id:resourcepack set hash:<context.hash>
-            - yaml savefile:data/resourcepack.yml id:resourcepack
-            - inject ServerPackUpdate
+        #- if <context.status> != <yaml[resourcepack].read[hash]>:
+        #    # Update Resource Pack Hash
+        #    - yaml id:resourcepack set hash:<context.hash>
+        #    - yaml savefile:data/resourcepack.yml id:resourcepack
+        #    - inject ServerPackUpdate
             
         on player joins:
         # Send Player Current Pack on Join
