@@ -91,28 +91,17 @@ ResourcePackEvents:
     events:
     
         on resource pack status:
-        
-        # Player Pack Events
-        - if <context.status> == "SUCCESSFULLY_DOWNLOADED":
-            - teleport <player> <yaml[resourcepack].read[spawn]>
+        - if <context.status> == "SUCCESSFULLY_LOADED":
+            - teleport <player> <player.flag[oldLocation].as_location>
+            - flag player oldLocation:!
         - else if <context.status> == "FAILED_DOWNLOAD":
-            - narrate "<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
-            
-        # Pack Update Events
-        #- if <context.status> != <yaml[resourcepack].read[hash]>:
-        #    # Update Resource Pack Hash
-        #    - yaml id:resourcepack set hash:<context.hash>
-        #    - yaml savefile:data/resourcepack.yml id:resourcepack
-        #    - inject ServerPackUpdate
+            - kick <player>  "reason:<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
             
         on player joins:
         # Send Player Current Pack on Join
+        - flag player oldLocation <player.location>
         - teleport <player> <yaml[resourcepack].read[lobby].as_location>
-        
-        on player right clicks oak_wall_sign:
-        - if <context.location.world> == <yaml[resourcepack].read[lobby].as_location.world>:
-            - determine passively cancelled
-            - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
+        - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
             
         # Init Events
         on server prestart:
