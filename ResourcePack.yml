@@ -112,3 +112,9 @@ ResourcePackEvents:
         - if <context.location.world> == <yaml[resourcepack].read[lobby].as_location.world>:
             - determine passively cancelled
             - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
+            
+        # Init Events
+        on server prestart:
+        - inject ResourcePackInit
+        on reload scripts:
+        - inject ResourcePackInit
