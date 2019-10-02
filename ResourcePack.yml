@@ -41,20 +41,9 @@ ResourcePackCommand:
             - if <context.args.get[1]> == "help":
                 - narrate "<def[prefix]> Full List of Available Commands:"
                 - narrate "<def[prefix]> /rp help - List all commands."
-                - narrate "<def[prefix]> /rp hash - Get current resource pack hash."
-                - narrate "<def[prefix]> /rp sethash <&lt>hash<&gt> - Set current resource pack hash."
                 - narrate "<def[prefix]> /rp reload - Reload current configuration and all player packs."
                 - narrate "<def[prefix]> /rp setpack <&lt>url<&gt> - Set current resource pack url."
-                - narrate "<def[prefix]> /rp setspawn - Set's the normal spawn to your location, for after the pack is loaded."
                 - narrate "<def[prefix]> /rp setlobby - Set's the lobby within your world for loading of the pack."
-            - else if <context.args.get[1]> == "hash":
-                - narrate "<def[prefix]> The current resource pack hash is: <yaml[resourcepack].read[hash]>"
-            - else if <context.args.get[1]> == "sethash":
-                - if <context.args.get[2]||null> != null:
-                    - yaml id:resourcepack set hash:<context.args.get[2]>
-                    - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
-                - else:
-                    - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp sethash <&lt>hash<&gt>"
             - else if <context.args.get[1]> == "reload":
                 - inject ResourcePackExit
                 - inject ResourcePackInit
@@ -66,13 +55,6 @@ ResourcePackCommand:
                     - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
                 - else:
                     - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp setpack <&lt>url<&gt>"  
-            - else if <context.args.get[1]> == "setspawn":
-                - if !<context.server>:
-                    - yaml id:resourcepack set spawn:<player.location>
-                    - yaml savefile:data/resourcepack.yml id:resourcepack
-                    - narrate "<def[prefix]> The spawn has now been set to your current location."
-                - else:
-                    - narrate "<def[prefix]> Only a player can use this command."]
             - else if <context.args.get[1]> == "setlobby":
                 - if !<context.server>:
                     - yaml id:resourcepack set lobby:<player.location>
@@ -98,8 +80,9 @@ ResourcePackEvents:
             - kick <player>  "reason:<&4><&l>ResourcePackDownloadError<&nl><&f>There was a problem downloading the resource pack."
             
         on player joins:
+        - wait 1t
         # Send Player Current Pack on Join
-        - flag player oldLocation <player.location>
+        - flag player oldLocation:<player.location>
         - teleport <player> <yaml[resourcepack].read[lobby].as_location>
         - adjust <player> "resource_pack:<yaml[resourcepack].read[url]>"
             
