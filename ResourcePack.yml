@@ -62,6 +62,7 @@ ResourcePackCommand:
             - else if <context.args.get[1]> == "setpack":
                 - if <context.args.get[2]||null> != null:
                     - yaml id:resourcepack set url:<context.args.get[2]>
+                    - yaml savefile:data/resourcepack.yml id:resourcepack
                     - narrate "<def[prefix]> You successfully changed the resource pack hash to <&dq><context.args.get[2]><&dq>"
                 - else:
                     - narrate "<def[prefix]> You need to specify a new hash to set. Usage: /rp setpack <&lt>url<&gt>"  
