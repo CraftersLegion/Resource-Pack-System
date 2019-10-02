@@ -77,7 +77,7 @@ ResourcePackCommand:
                 - if !<context.server>:
                     - yaml id:resourcepack set lobby:<player.location>
                     - yaml savefile:data/resourcepack.yml id:resourcepack
-                    - narrate "<def[prefix]> The spawn has now been set to your current location."
+                    - narrate "<def[prefix]> The lobby has now been set to your current location."
                 - else:
                     - narrate "<def[prefix]> Only a player can use this command."
             - else:
